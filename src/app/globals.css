@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 119 19% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 119 19% 48%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222 47% 5.5%;
+    --foreground: 210 40% 98%;
+
+    --card: 223 38% 9.5%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 223 40% 11.5%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 119 25% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 222 32% 14%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 32% 14%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 222 32% 14%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 28% 18%;
+    --input: 222 28% 18%;
+    --ring: 119 25% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: hsl(var(--background));
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Smooth color transitions when toggling themes */
+  .bg-card, aside, header, nav, button, input, select, textarea {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .dark body {
+    background-color: hsl(222 47% 5.5%);
+  }
+
+  .dark .bg-card {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Interactive Micro-animations & Smooth Transitions */
+@keyframes enterFadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes enterFadeSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes enterScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes wiggle-subtle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+
+.animate-enter {
+  animation: enterFadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  will-change: transform, opacity;
+}
+
+.animate-enter-down {
+  animation: enterFadeSlideDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  will-change: transform, opacity;
+}
+
+.animate-scale-in {
+  animation: enterScale 0.45s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  will-change: transform, opacity;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-float-subtle {
+  animation: float-subtle 3s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle-subtle 1.5s ease-in-out infinite;
+}
+
+/* Stagger animation utilities with backwards fill-mode */
+.stagger-1 { animation-delay: 80ms; }
+.stagger-2 { animation-delay: 160ms; }
+.stagger-3 { animation-delay: 240ms; }
+.stagger-4 { animation-delay: 320ms; }
+.stagger-5 { animation-delay: 400ms; }
+.stagger-6 { animation-delay: 480ms; }
+.stagger-7 { animation-delay: 560ms; }
+.stagger-8 { animation-delay: 640ms; }
+
+/* Interactive Hover Cards */
+.interactive-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+.dark .interactive-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+/* Interactive Button Click & Hover Feedback */
+.interactive-button {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.interactive-button:hover {
+  transform: translateY(-1px);
+}
+
+.interactive-button:active {
+  transform: scale(0.96);
+}
+
+/* Smooth Table Row */
+.smooth-row {
+  transition: background-color 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+}
+
+.smooth-row:hover {
+  background-color: hsl(var(--primary) / 0.04);
+}
+
+
